@@ -44,13 +44,9 @@
             <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Calcollector</h1>
             <p class="text-xl md:text-2xl font-light mb-8 opacity-90">A modern, feature-rich Android calculator app designed for productivity and ease of use</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button id="downloadBtn" class="pulse-animation bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg">
-                    📥 Download APK
-                </button>
-                <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
-                    <span class="font-semibold">Downloads: </span>
-                    <span id="downloadCount" class="font-bold text-xl">Loading...</span>
-                </div>
+                <a href="app-debug.apk" class="pulse-animation bg-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg">
+                      Download APK
+                </a>
             </div>
         </div>
     </header>
@@ -191,35 +187,5 @@
         </div>
     </footer>
 
-    <script>
-        // Fetch download count on page load
-        async function fetchDownloadCount() {
-            try {
-                const response = await fetch('/api/downloads');
-                const data = await response.json();
-                document.getElementById('downloadCount').textContent = data.count;
-            } catch (error) {
-                console.error('Failed to fetch download count:', error);
-                document.getElementById('downloadCount').textContent = 'Error';
-            }
-        }
-
-        // Handle download button click
-        document.getElementById('downloadBtn').addEventListener('click', async () => {
-            // Increment download count
-            try {
-                await fetch('/api/downloads', { method: 'POST' });
-                await fetchDownloadCount();
-            } catch (error) {
-                console.error('Failed to update download count:', error);
-            }
-            
-            // Trigger download
-            window.location.href = '/download';
-        });
-
-        // Initial fetch
-        fetchDownloadCount();
-    </script>
 </body>
 </html>
